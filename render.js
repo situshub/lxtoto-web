@@ -74,7 +74,7 @@
     var h='<header class="hero-n"><h1>'+d.h1+'</h1><p>'+d.subtitle+'</p>';
     h+='<a class="glow-btn" href="'+C.daftar+'" rel="sponsored nofollow noopener">Mulai Sekarang</a>';
     h+='<div class="neon-line" style="margin-top:32px"></div></header>';
-    h+=bc(d)+bnr()+'<main><div class="wrap"><article>'+secs(d);
+    h+=bc(d)+bnr(d,pri)+'<main><div class="wrap"><article>'+secs(d);
     h+='<div class="cta-n anim"><h3 style="color:'+pri+';margin:0 0 8px">Bergabung Sekarang</h3><p style="color:#b0aaa0;margin:0 0 16px">Akses semua fitur premium. Daftar gratis.</p><a class="glow-btn" href="'+C.daftar+'" rel="sponsored nofollow noopener">Daftar →</a></div>';
     h+=faq(d)+'</article></div></main>';
     h+='<footer><p>&copy; 2026 '+C.brand+' Community</p><div class="disc">Bermain secara bertanggung jawab. Layanan khusus untuk pengguna berusia 21 tahun ke atas.</div></footer>';
@@ -117,7 +117,7 @@
     '@media(max-width:640px){.hero-w{padding:60px 16px 40px}.wrap{padding:0 16px}h2{font-size:1.4rem}}'
     );
     var h='<header class="hero-w"><span class="ey">★ Panduan 2026</span><h1>'+d.h1.replace(C.brand,'<em>'+C.brand+'</em>')+'</h1><p>'+d.subtitle+'</p><div class="gold-line"></div></header>';
-    h+=bc(d)+bnr()+'<main><div class="wrap"><article>'+secs(d);
+    h+=bc(d)+bnr(d,pri)+'<main><div class="wrap"><article>'+secs(d);
     h+='<div class="cta-w anim"><h3 style="color:'+pri+';margin:0 0 10px;font-size:1.3rem">Siap Bergabung?</h3><p style="color:#a09880;margin:0 0 20px">Akses premium. Daftar gratis sekarang.</p><a class="btn-w" href="'+C.daftar+'" rel="sponsored nofollow noopener">Daftar Sekarang →</a></div>';
     h+=faq(d)+'</article></div></main>';
     h+='<footer><p>&copy; 2026 '+C.brand+'</p><div class="disc">Bermain secara bertanggung jawab. Layanan khusus untuk pengguna berusia 21 tahun ke atas.</div></footer>';
@@ -159,7 +159,7 @@
     '@media(max-width:640px){.hero-f{padding:48px 16px 32px}.wrap{padding:0 16px}.cta-f{flex-direction:column;text-align:center}}'
     );
     var h='<header class="hero-f"><span class="tag">'+C.brand+'</span><h1>'+d.h1+'</h1><p>'+d.subtitle+'</p></header><div class="sep"></div>';
-    h+=bc(d)+bnr()+'<main><div class="wrap"><article>'+secs(d);
+    h+=bc(d)+bnr(d,pri)+'<main><div class="wrap"><article>'+secs(d);
     h+='<div class="cta-f anim"><div><h3 style="color:'+pri+';margin:0 0 4px">Bergabung?</h3><p style="color:#908e84;margin:0">Daftar gratis, akses semua fitur.</p></div><a class="btn-f" href="'+C.daftar+'" rel="sponsored nofollow noopener">Daftar →</a></div>';
     h+=faq(d)+'</article></div></main>';
     h+='<footer><p>'+C.brand+' &copy; 2026</p><div class="disc">Bermain secara bertanggung jawab. 21+ only.</div></footer>';
@@ -207,7 +207,7 @@
     var h='<header class="hero-b"><h1>'+d.h1+'</h1><p>'+d.subtitle+'</p>';
     h+='<div class="chips"><span class="chip">✦ 2026</span><span class="chip">✦ Terlengkap</span><span class="chip">✦ Terpercaya</span></div></header>';
     h+='<div class="diag-sep"></div>';
-    h+=bc(d)+bnr()+'<main><div class="wrap"><article>'+secs(d);
+    h+=bc(d)+bnr(d,pri)+'<main><div class="wrap"><article>'+secs(d);
     h+='<div class="cta-b anim"><h3>Bergabung Sekarang</h3><p>Daftar gratis, akses semua fitur premium.</p><a class="btn-b" href="'+C.daftar+'" rel="sponsored nofollow noopener">Daftar →</a></div>';
     h+=faq(d)+'</article></div></main>';
     h+='<footer><p>'+C.brand+' &copy; 2026</p><div class="disc">Bermain secara bertanggung jawab. 21+ only.</div></footer>';
@@ -249,7 +249,7 @@
     );
     var h='<header class="hero-g"><div class="glass-card"><h1>'+d.h1+'</h1><p>'+d.subtitle+'</p>';
     h+='<a class="float-btn" href="'+C.daftar+'" rel="sponsored nofollow noopener">Mulai Sekarang →</a></div></header>';
-    h+=bc(d)+bnr()+'<main><div class="wrap"><article>'+secs(d);
+    h+=bc(d)+bnr(d,pri)+'<main><div class="wrap"><article>'+secs(d);
     h+='<div class="cta-g anim"><h3 style="color:'+pri+';margin:0 0 10px;font-size:1.3rem">Bergabung Sekarang</h3><p style="color:#a0a0a8;margin:0 0 18px">Daftar gratis, akses premium.</p><a class="btn-g" href="'+C.daftar+'" rel="sponsored nofollow noopener">Daftar →</a></div>';
     h+=faq(d)+'</article></div></main>';
     h+='<footer><p>'+C.brand+' &copy; 2026</p><div class="disc">Bermain secara bertanggung jawab. 21+ only.</div></footer>';
@@ -260,7 +260,7 @@
   // SHARED
   // ==========================================
   function bc(d){return '<nav class="bc" aria-label="breadcrumb" style="padding:12px 24px;font-size:.85rem;color:#666;border-bottom:1px solid #ffffff08;max-width:880px;margin:0 auto"><ol style="display:flex;gap:6px;list-style:none;padding:0;margin:0"><li><a href="'+C.base+'" style="color:inherit">Home</a> ›</li><li style="color:#999">'+d.title+'</li></ol></nav>';}
-  function bnr(){return '<a class="banner" href="'+C.daftar+'" rel="sponsored nofollow noopener"><img src="'+C.banner+'" alt="Banner" width="1200" height="400" loading="lazy"></a>';}
+  function bnr(d,pri){var t=d?d.h1||d.title||'':'';var p=pri||'#6366f1';return '<a class="banner" href="'+C.daftar+'" rel="sponsored nofollow noopener" style="position:relative;display:block;max-width:880px;margin:24px auto;border-radius:14px;overflow:hidden;text-decoration:none"><img src="'+C.banner+'" alt="'+t+'" width="1200" height="400" loading="lazy" style="width:100%;display:block;filter:brightness(.4)"><div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;text-align:center;background:linear-gradient(135deg,'+p+'60,'+p+'20)"><div style="font-size:clamp(1.2rem,3vw,2rem);font-weight:800;color:#fff;text-shadow:0 2px 20px rgba(0,0,0,.6);max-width:700px;line-height:1.2;margin-bottom:12px">'+t+'</div><div style="padding:10px 24px;background:rgba(255,255,255,.15);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.2);border-radius:999px;color:#fff;font-weight:600;font-size:.9rem">Daftar Sekarang →</div></div></a>';}
   function secs(d){var h='';if(d.sections)d.sections.forEach(function(s){h+='<section class="anim">';if(s.h2)h+='<h2 id="'+slug(s.h2)+'">'+s.h2+'</h2>';if(s.h3)h+='<h3>'+s.h3+'</h3>';if(s.paragraphs)s.paragraphs.forEach(function(p){h+='<p>'+p+'</p>';});if(s.list){h+='<ul>';s.list.forEach(function(l){h+='<li>'+l+'</li>';});h+='</ul>';}if(s.ordered){h+='<ol>';s.ordered.forEach(function(l){h+='<li>'+l+'</li>';});h+='</ol>';}if(s.table)h+='<div class="tbl" id="perbandingan">'+tbl(s.table)+'</div>';h+='</section>';});return h;}
   function faq(d){if(!d.faq||!d.faq.length)return '';var h='<section class="anim"><h2 id="faq">Pertanyaan Umum</h2>';d.faq.forEach(function(f){h+='<details class="anim"><summary>'+f.q+'</summary><div class="faq-a">'+f.a+'</div></details>';});return h+'</section>';}
   function css(fn,extra){var s=document.createElement('style');s.textContent=extra;document.head.appendChild(s);document.body.style.fontFamily="'"+fn+"',system-ui,sans-serif";}

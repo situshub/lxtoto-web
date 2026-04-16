@@ -263,7 +263,6 @@
   function bnr(d,pri){
     var t=d?d.h1||d.title||'':'';var p=pri||'#6366f1';
     var kw=(d.keywords||d.title||'').toLowerCase();
-    // Pick icon set based on topic
     var icons='🎮 🎰 ⭐';
     if(/slot|gacor|spin|rtp|volatil|megaway|scatter|wild|multiplier|autoplay|klasik|video|cluster/i.test(kw))icons='🎰 💎 🔥';
     else if(/togel|2d|3d|4d|shio|colok|prediksi|keluaran|singapore|hongkong|sydney/i.test(kw))icons='🔢 🎱 📊';
@@ -279,19 +278,76 @@
     else if(/sportsbook|taruhan|olahraga|sepakbola|basket/i.test(kw))icons='⚽ 🏀 📺';
     else if(/faq|pertanyaan/i.test(kw))icons='❓ 📚 💡';
     var ic=icons.split(' ');
-    // Unique gradient angle per page
     var pn=parseInt((pid.match(/\d+/)||[0])[0])||0;
-    var angles=['135deg','160deg','180deg','200deg','225deg','150deg','170deg','190deg','210deg','140deg'];
-    var ang=angles[pn%angles.length];
-    return '<a href="'+C.daftar+'" rel="sponsored nofollow noopener" style="display:block;max-width:880px;margin:24px auto;border-radius:18px;overflow:hidden;text-decoration:none;position:relative;background:linear-gradient('+ang+','+p+'30,#0c0d14 40%,#0c0d14 60%,'+p+'20);border:1px solid '+p+'25;padding:48px 32px;text-align:center;box-shadow:0 20px 60px -20px rgba(0,0,0,.5)">'+
-    '<div style="position:absolute;top:16px;left:24px;font-size:2.5rem;opacity:.15">'+ic[0]+'</div>'+
-    '<div style="position:absolute;bottom:16px;right:24px;font-size:2.5rem;opacity:.15">'+ic[1]+'</div>'+
-    '<div style="position:absolute;top:50%;left:8%;font-size:3.5rem;opacity:.07;transform:translateY(-50%)">'+ic[2]+'</div>'+
-    '<div style="position:absolute;top:20%;right:12%;font-size:2rem;opacity:.1">'+ic[0]+'</div>'+
-    '<div style="font-size:clamp(1.3rem,3.5vw,2.2rem);font-weight:800;color:#fff;max-width:700px;margin:0 auto 8px;line-height:1.2;position:relative;text-shadow:0 2px 20px rgba(0,0,0,.4)">'+t+'</div>'+
-    '<div style="font-size:.9rem;color:'+p+';margin-bottom:20px;position:relative">'+C.brand+' — Panduan Terlengkap 2026</div>'+
-    '<div style="display:inline-flex;align-items:center;gap:6px;padding:10px 24px;background:'+p+';color:#0c0d14;font-weight:700;border-radius:999px;font-size:.9rem;position:relative;box-shadow:0 8px 24px '+p+'40;transition:transform .2s">Daftar Sekarang →</div>'+
-    '</a>';
+    var layout=pn%8;
+    var h='<a href="'+C.daftar+'" rel="sponsored nofollow noopener" style="display:block;max-width:880px;margin:24px auto;border-radius:18px;overflow:hidden;text-decoration:none;position:relative;border:1px solid '+p+'25;box-shadow:0 20px 60px -20px rgba(0,0,0,.5);min-height:200px;';
+
+    // 8 different banner layouts
+    if(layout===0){
+      // LEFT TEXT — icon right
+      h+='background:linear-gradient(135deg,'+p+'20,#0c0d14 50%,'+p+'10);display:flex;align-items:center;padding:36px 40px">';
+      h+='<div style="flex:1;text-align:left"><div style="font-size:.8rem;color:'+p+';text-transform:uppercase;letter-spacing:2px;margin-bottom:10px">'+C.brand+' 2026</div>';
+      h+='<div style="font-size:clamp(1.3rem,3vw,2rem);font-weight:800;color:#fff;line-height:1.2;margin-bottom:16px;text-shadow:0 2px 10px rgba(0,0,0,.3)">'+t+'</div>';
+      h+='<div style="display:inline-flex;padding:10px 22px;background:'+p+';color:#0c0d14;font-weight:700;border-radius:8px;font-size:.85rem">Daftar →</div></div>';
+      h+='<div style="font-size:5rem;opacity:.2;margin-left:20px">'+ic[0]+'</div>';
+    } else if(layout===1){
+      // CENTER STACKED — large icon top
+      h+='background:radial-gradient(circle at 50% 30%,'+p+'25,#0c0d14 70%);text-align:center;padding:40px 32px">';
+      h+='<div style="font-size:4rem;margin-bottom:12px;filter:drop-shadow(0 0 20px '+p+'40)">'+ic[0]+'</div>';
+      h+='<div style="font-size:clamp(1.2rem,3vw,1.9rem);font-weight:800;color:#fff;max-width:650px;margin:0 auto 8px;line-height:1.2">'+t+'</div>';
+      h+='<div style="font-size:.85rem;color:'+p+';margin-bottom:16px">'+C.brand+' — Panduan Terlengkap</div>';
+      h+='<div style="display:inline-flex;padding:10px 24px;background:'+p+';color:#0c0d14;font-weight:700;border-radius:999px;font-size:.85rem;box-shadow:0 6px 20px '+p+'40">Daftar Sekarang →</div>';
+    } else if(layout===2){
+      // RIGHT TEXT — emoji left column
+      h+='background:linear-gradient(225deg,'+p+'20,#0c0d14 50%,'+p+'08);display:flex;align-items:center;padding:36px 40px;flex-direction:row-reverse">';
+      h+='<div style="flex:1;text-align:right"><div style="font-size:clamp(1.3rem,3vw,2rem);font-weight:800;color:#fff;line-height:1.2;margin-bottom:8px">'+t+'</div>';
+      h+='<div style="font-size:.85rem;color:'+p+';margin-bottom:16px">'+C.brand+' 2026</div>';
+      h+='<div style="display:inline-flex;padding:10px 22px;background:'+p+';color:#0c0d14;font-weight:700;border-radius:8px;font-size:.85rem">Daftar →</div></div>';
+      h+='<div style="display:flex;flex-direction:column;gap:8px;margin-right:24px;font-size:2.5rem;opacity:.2">'+ic.map(function(i){return '<span>'+i+'</span>'}).join('')+'</div>';
+    } else if(layout===3){
+      // BOTTOM BAR — text top, CTA bottom bar
+      h+='background:linear-gradient(180deg,'+p+'15,#0c0d14 60%,'+p+'20);padding:36px 32px 0;display:flex;flex-direction:column">';
+      h+='<div style="flex:1;text-align:center;padding-bottom:20px"><div style="font-size:clamp(1.4rem,3.5vw,2.2rem);font-weight:800;color:#fff;max-width:700px;margin:0 auto 8px;line-height:1.15">'+t+'</div>';
+      h+='<div style="font-size:.85rem;color:#999">'+C.brand+' — Panduan Terlengkap 2026</div></div>';
+      h+='<div style="display:flex;justify-content:space-between;align-items:center;padding:14px 20px;background:'+p+'15;border-top:1px solid '+p+'25;border-radius:0 0 17px 17px;margin:0 -1px -1px">';
+      h+='<span style="font-size:1.5rem">'+ic.join(' ')+'</span>';
+      h+='<span style="padding:8px 20px;background:'+p+';color:#0c0d14;font-weight:700;border-radius:8px;font-size:.85rem">Daftar →</span></div>';
+    } else if(layout===4){
+      // SPLIT 50/50 — left gradient block + right text
+      h+='display:flex;overflow:hidden;padding:0">';
+      h+='<div style="flex:1;background:linear-gradient(135deg,'+p+'40,'+p+'15);display:flex;align-items:center;justify-content:center;padding:32px;min-height:180px">';
+      h+='<div style="font-size:4.5rem;filter:drop-shadow(0 4px 20px rgba(0,0,0,.3))">'+ic[0]+'</div></div>';
+      h+='<div style="flex:1.2;padding:32px 28px;display:flex;flex-direction:column;justify-content:center">';
+      h+='<div style="font-size:.75rem;color:'+p+';text-transform:uppercase;letter-spacing:2px;margin-bottom:8px">★ '+C.brand+'</div>';
+      h+='<div style="font-size:clamp(1.1rem,2.5vw,1.7rem);font-weight:800;color:#fff;line-height:1.2;margin-bottom:14px">'+t+'</div>';
+      h+='<div style="display:inline-flex;padding:10px 22px;background:'+p+';color:#0c0d14;font-weight:700;border-radius:8px;font-size:.85rem;align-self:flex-start">Daftar →</div></div>';
+    } else if(layout===5){
+      // DIAGONAL — skewed accent bar
+      h+='background:#0c0d14;text-align:center;padding:44px 32px;position:relative;overflow:hidden">';
+      h+='<div style="position:absolute;top:0;left:0;right:0;height:50%;background:linear-gradient(135deg,'+p+'20,transparent);transform:skewY(-3deg);transform-origin:top left"></div>';
+      h+='<div style="position:relative"><div style="display:flex;gap:16px;justify-content:center;margin-bottom:16px;font-size:2rem;opacity:.25">'+ic.map(function(i){return '<span>'+i+'</span>'}).join('')+'</div>';
+      h+='<div style="font-size:clamp(1.3rem,3vw,2rem);font-weight:800;color:#fff;max-width:680px;margin:0 auto 8px;line-height:1.2">'+t+'</div>';
+      h+='<div style="font-size:.85rem;color:'+p+';margin-bottom:18px">Panduan Terlengkap 2026</div>';
+      h+='<div style="display:inline-flex;padding:10px 24px;background:'+p+';color:#0c0d14;font-weight:700;border-radius:999px;font-size:.85rem">Daftar Sekarang →</div></div>';
+    } else if(layout===6){
+      // CARD OVERLAP — icon card floating over gradient
+      h+='background:linear-gradient(160deg,'+p+'18,#0c0d14 40%,#0c0d14 60%,'+p+'12);padding:28px 32px;display:flex;align-items:center;gap:24px;flex-wrap:wrap">';
+      h+='<div style="width:80px;height:80px;background:'+p+'20;border:2px solid '+p+'40;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:2.5rem;flex-shrink:0">'+ic[0]+'</div>';
+      h+='<div style="flex:1;min-width:200px"><div style="font-size:clamp(1.2rem,2.5vw,1.8rem);font-weight:800;color:#fff;line-height:1.2;margin-bottom:6px">'+t+'</div>';
+      h+='<div style="font-size:.85rem;color:#999;margin-bottom:12px">'+C.brand+' — 2026</div>';
+      h+='<div style="display:inline-flex;padding:8px 20px;background:'+p+';color:#0c0d14;font-weight:700;border-radius:8px;font-size:.85rem">Daftar →</div></div>';
+    } else {
+      // PILL BADGES — horizontal badges + centered title
+      h+='background:radial-gradient(ellipse at 30% 0%,'+p+'15,#0c0d14 50%,'+p+'08);text-align:center;padding:36px 32px">';
+      h+='<div style="display:flex;gap:8px;justify-content:center;margin-bottom:16px;flex-wrap:wrap">';
+      h+='<span style="padding:5px 14px;background:'+p+'15;border:1px solid '+p+'30;border-radius:999px;font-size:.78rem;color:'+p+'">'+ic[0]+' '+C.brand+'</span>';
+      h+='<span style="padding:5px 14px;background:'+p+'10;border:1px solid '+p+'20;border-radius:999px;font-size:.78rem;color:'+p+'">'+ic[1]+' 2026</span>';
+      h+='<span style="padding:5px 14px;background:'+p+'08;border:1px solid '+p+'15;border-radius:999px;font-size:.78rem;color:'+p+'">'+ic[2]+' Terlengkap</span></div>';
+      h+='<div style="font-size:clamp(1.3rem,3.5vw,2.2rem);font-weight:800;color:#fff;max-width:700px;margin:0 auto 16px;line-height:1.2">'+t+'</div>';
+      h+='<div style="display:inline-flex;padding:10px 24px;background:'+p+';color:#0c0d14;font-weight:700;border-radius:999px;font-size:.85rem;box-shadow:0 6px 20px '+p+'35">Daftar →</div>';
+    }
+    h+='</a>';
+    return h;
   }
   function secs(d){var h='';if(d.sections)d.sections.forEach(function(s){h+='<section class="anim">';if(s.h2)h+='<h2 id="'+slug(s.h2)+'">'+s.h2+'</h2>';if(s.h3)h+='<h3>'+s.h3+'</h3>';if(s.paragraphs)s.paragraphs.forEach(function(p){h+='<p>'+p+'</p>';});if(s.list){h+='<ul>';s.list.forEach(function(l){h+='<li>'+l+'</li>';});h+='</ul>';}if(s.ordered){h+='<ol>';s.ordered.forEach(function(l){h+='<li>'+l+'</li>';});h+='</ol>';}if(s.table)h+='<div class="tbl" id="perbandingan">'+tbl(s.table)+'</div>';h+='</section>';});return h;}
   function faq(d){if(!d.faq||!d.faq.length)return '';var h='<section class="anim"><h2 id="faq">Pertanyaan Umum</h2>';d.faq.forEach(function(f){h+='<details class="anim"><summary>'+f.q+'</summary><div class="faq-a">'+f.a+'</div></details>';});return h+'</section>';}

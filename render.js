@@ -77,8 +77,59 @@
       addJsonLd({"@context":"https://schema.org","@type":"FAQPage","mainEntity":d.faq.map(f=>({"@type":"Question","name":f.q,"acceptedAnswer":{"@type":"Answer","text":f.a}}))});
     }
 
+    // Layout variant based on page number
+    var pn = parseInt((pageId.match(/\d+/)||[0])[0]) || 0;
+    var layouts = ['centered','split','compact','editorial','wide'];
+    var navStyles = ['center','pill','underline','glass','minimal'];
+    var heroStyles = ['gradient','banner','split-hero','overlay','compact-hero'];
+    var footerStyles = ['multi-col','centered','wide-bar','stacked','minimal-ft'];
+    var imgEffects = ['tilt','glow','zoom','pulse','bounce'];
+    var layout = layouts[pn % 5];
+    var navStyle = navStyles[pn % 5];
+    var heroStyle = heroStyles[pn % 5];
+    var footerStyle = footerStyles[pn % 5];
+    var imgEffect = imgEffects[pn % 5];
+
+    // Inject layout-specific CSS
+    var layoutCSS = document.createElement('style');
+    var pri = d.color || '#6366f1';
+    var cssText = '';
+
+    // Nav variants
+    if(navStyle==='pill') cssText+='.topbar{border-radius:0 0 20px 20px;margin:0 12px;width:calc(100% - 24px);left:12px}';
+    if(navStyle==='underline') cssText+='.topbar{border-bottom:3px solid '+pri+';box-shadow:none}';
+    if(navStyle==='glass') cssText+='.topbar{background:rgba(10,10,18,.7);backdrop-filter:blur(20px)}';
+    if(navStyle==='minimal') cssText+='.topbar{background:transparent;border:none;box-shadow:none}';
+
+    // Hero variants
+    if(heroStyle==='banner') cssText+='.hero{padding:40px 24px 24px;border-bottom:3px solid '+pri+'}';
+    if(heroStyle==='split-hero') cssText+='.hero{text-align:left;padding:60px 24px 40px}.hero h1{margin:0 0 16px}';
+    if(heroStyle==='overlay') cssText+='.hero{background:linear-gradient(135deg,'+pri+'22,transparent),radial-gradient(circle at 80% 20%,'+pri+'15,transparent),var(--bg)}';
+    if(heroStyle==='compact-hero') cssText+='.hero{padding:32px 24px 20px}.hero h1{font-size:clamp(1.4rem,3vw,2rem)}';
+
+    // Section layout variants
+    if(layout==='split') cssText+='@media(min-width:768px){article section{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}article section h2{grid-column:1/-1}article section .tbl{grid-column:1/-1}}';
+    if(layout==='wide') cssText+='.wrap{max-width:1100px}';
+    if(layout==='compact') cssText+='.wrap{max-width:720px}article section{margin-bottom:1.5rem}';
+    if(layout==='editorial') cssText+='article p{font-size:1.05rem;line-height:1.9}h2{font-size:1.8rem;border-left-width:5px}';
+
+    // Image effect variants
+    if(imgEffect==='tilt') cssText+='.banner img{transition:transform .5s}.banner:hover img{transform:perspective(800px) rotateY(3deg) rotateX(2deg) scale(1.02)}';
+    if(imgEffect==='glow') cssText+='.banner{box-shadow:0 0 30px '+pri+'30}.banner:hover{box-shadow:0 0 50px '+pri+'50}';
+    if(imgEffect==='zoom') cssText+='.banner img{transition:transform .4s}.banner:hover img{transform:scale(1.05)}';
+    if(imgEffect==='pulse') cssText+='@keyframes pulse-glow{0%,100%{box-shadow:0 0 20px '+pri+'20}50%{box-shadow:0 0 40px '+pri+'40}}.banner{animation:pulse-glow 3s infinite}';
+    if(imgEffect==='bounce') cssText+='.banner img{transition:transform .3s}.banner:hover img{transform:translateY(-6px)}';
+
+    // Footer variants
+    if(footerStyle==='multi-col') cssText+='footer{text-align:left}footer .f-inner{display:flex;justify-content:space-between;flex-wrap:wrap;gap:20px;max-width:880px;margin:0 auto}';
+    if(footerStyle==='wide-bar') cssText+='footer{padding:20px 24px;border-top-width:4px}';
+    if(footerStyle==='stacked') cssText+='footer{padding:48px 24px}footer p{margin:8px 0}';
+
+    layoutCSS.textContent = cssText;
+    document.head.appendChild(layoutCSS);
+
     // Build HTML
-    let html = '';
+    var html = '';
 
     // Hero
     html += '<header class="hero"><h1>' + d.h1 + '</h1>';
@@ -95,7 +146,7 @@
 
     // Sections
     if(d.sections) {
-      d.sections.forEach(function(s) {
+      d.sections.forEach(function(s, si) {
         html += '<section class="anim">';
         if(s.h2) html += '<h2 id="' + slugify(s.h2) + '">' + s.h2 + '</h2>';
         if(s.h3) html += '<h3>' + s.h3 + '</h3>';
@@ -113,7 +164,7 @@
           html += '</ol>';
         }
         if(s.table) {
-          html += '<div class="tbl">' + renderTable(s.table) + '</div>';
+          html += '<div class="tbl" id="perbandingan">' + renderTable(s.table) + '</div>';
         }
         html += '</section>';
       });
@@ -135,7 +186,11 @@
     html += '</article></div></main>';
 
     // Footer
-    html += '<footer><p>&copy; 2026 LXTOTO Community</p>';
+    if(footerStyle==='multi-col') {
+      html += '<footer><div class="f-inner"><div><strong style="color:'+pri+'">LXTOTO</strong><p>Platform hiburan digital terpercaya di Indonesia.</p></div><div><strong>Navigasi</strong><p><a href="#faq">FAQ</a> · <a href="#perbandingan">Perbandingan</a></p></div><div><strong>Legal</strong><p>Hanya untuk 21+</p></div></div>';
+    } else {
+      html += '<footer><p>&copy; 2026 LXTOTO Community</p>';
+    }
     html += '<div class="disc">Bermain secara bertanggung jawab. Layanan khusus untuk pengguna berusia 21 tahun ke atas.</div>';
     html += '</footer>';
 

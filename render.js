@@ -260,7 +260,39 @@
   // SHARED
   // ==========================================
   function bc(d){return '<nav class="bc" aria-label="breadcrumb" style="padding:12px 24px;font-size:.85rem;color:#666;border-bottom:1px solid #ffffff08;max-width:880px;margin:0 auto"><ol style="display:flex;gap:6px;list-style:none;padding:0;margin:0"><li><a href="'+C.base+'" style="color:inherit">Home</a> ›</li><li style="color:#999">'+d.title+'</li></ol></nav>';}
-  function bnr(d,pri){var t=d?d.h1||d.title||'':'';var p=pri||'#6366f1';return '<a class="banner" href="'+C.daftar+'" rel="sponsored nofollow noopener" style="position:relative;display:block;max-width:880px;margin:24px auto;border-radius:14px;overflow:hidden;text-decoration:none"><img src="'+C.banner+'" alt="'+t+'" width="1200" height="400" loading="lazy" style="width:100%;display:block;filter:brightness(.4)"><div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;text-align:center;background:linear-gradient(135deg,'+p+'60,'+p+'20)"><div style="font-size:clamp(1.2rem,3vw,2rem);font-weight:800;color:#fff;text-shadow:0 2px 20px rgba(0,0,0,.6);max-width:700px;line-height:1.2;margin-bottom:12px">'+t+'</div><div style="padding:10px 24px;background:rgba(255,255,255,.15);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.2);border-radius:999px;color:#fff;font-weight:600;font-size:.9rem">Daftar Sekarang →</div></div></a>';}
+  function bnr(d,pri){
+    var t=d?d.h1||d.title||'':'';var p=pri||'#6366f1';
+    var kw=(d.keywords||d.title||'').toLowerCase();
+    // Pick icon set based on topic
+    var icons='🎮 🎰 ⭐';
+    if(/slot|gacor|spin|rtp|volatil|megaway|scatter|wild|multiplier|autoplay|klasik|video|cluster/i.test(kw))icons='🎰 💎 🔥';
+    else if(/togel|2d|3d|4d|shio|colok|prediksi|keluaran|singapore|hongkong|sydney/i.test(kw))icons='🔢 🎱 📊';
+    else if(/casino|baccarat|roulette|blackjack|dragon|sic bo|poker/i.test(kw))icons='🃏 ♠️ 🎲';
+    else if(/deposit|withdraw|e-wallet|bank|pulsa|qris|minimal|pembayaran/i.test(kw))icons='💳 🏦 ⚡';
+    else if(/bonus|cashback|referral|vip|loyalty|promo|event|reward/i.test(kw))icons='🎁 💰 🏆';
+    else if(/keamanan|ssl|verifikasi|2fa|lisensi|terpercaya|responsible|anti fraud/i.test(kw))icons='🔒 🛡️ ✅';
+    else if(/mobile|ios|android|windows|download|apk|app/i.test(kw))icons='📱 💻 🌐';
+    else if(/komunitas|forum|affiliate|review|testimoni|leaderboard|turnamen/i.test(kw))icons='👥 🏅 📣';
+    else if(/fishing|tembak|arcade|crash|aviator|keno/i.test(kw))icons='🎯 🐟 🚀';
+    else if(/strategi|tips|panduan|pemula|bankroll|menang|hunter/i.test(kw))icons='📖 🧠 💡';
+    else if(/customer|live chat|support|update|maintenance|notifikasi|login|daftar|cara/i.test(kw))icons='💬 🔧 📋';
+    else if(/sportsbook|taruhan|olahraga|sepakbola|basket/i.test(kw))icons='⚽ 🏀 📺';
+    else if(/faq|pertanyaan/i.test(kw))icons='❓ 📚 💡';
+    var ic=icons.split(' ');
+    // Unique gradient angle per page
+    var pn=parseInt((pid.match(/\d+/)||[0])[0])||0;
+    var angles=['135deg','160deg','180deg','200deg','225deg','150deg','170deg','190deg','210deg','140deg'];
+    var ang=angles[pn%angles.length];
+    return '<a href="'+C.daftar+'" rel="sponsored nofollow noopener" style="display:block;max-width:880px;margin:24px auto;border-radius:18px;overflow:hidden;text-decoration:none;position:relative;background:linear-gradient('+ang+','+p+'30,#0c0d14 40%,#0c0d14 60%,'+p+'20);border:1px solid '+p+'25;padding:48px 32px;text-align:center;box-shadow:0 20px 60px -20px rgba(0,0,0,.5)">'+
+    '<div style="position:absolute;top:16px;left:24px;font-size:2.5rem;opacity:.15">'+ic[0]+'</div>'+
+    '<div style="position:absolute;bottom:16px;right:24px;font-size:2.5rem;opacity:.15">'+ic[1]+'</div>'+
+    '<div style="position:absolute;top:50%;left:8%;font-size:3.5rem;opacity:.07;transform:translateY(-50%)">'+ic[2]+'</div>'+
+    '<div style="position:absolute;top:20%;right:12%;font-size:2rem;opacity:.1">'+ic[0]+'</div>'+
+    '<div style="font-size:clamp(1.3rem,3.5vw,2.2rem);font-weight:800;color:#fff;max-width:700px;margin:0 auto 8px;line-height:1.2;position:relative;text-shadow:0 2px 20px rgba(0,0,0,.4)">'+t+'</div>'+
+    '<div style="font-size:.9rem;color:'+p+';margin-bottom:20px;position:relative">'+C.brand+' — Panduan Terlengkap 2026</div>'+
+    '<div style="display:inline-flex;align-items:center;gap:6px;padding:10px 24px;background:'+p+';color:#0c0d14;font-weight:700;border-radius:999px;font-size:.9rem;position:relative;box-shadow:0 8px 24px '+p+'40;transition:transform .2s">Daftar Sekarang →</div>'+
+    '</a>';
+  }
   function secs(d){var h='';if(d.sections)d.sections.forEach(function(s){h+='<section class="anim">';if(s.h2)h+='<h2 id="'+slug(s.h2)+'">'+s.h2+'</h2>';if(s.h3)h+='<h3>'+s.h3+'</h3>';if(s.paragraphs)s.paragraphs.forEach(function(p){h+='<p>'+p+'</p>';});if(s.list){h+='<ul>';s.list.forEach(function(l){h+='<li>'+l+'</li>';});h+='</ul>';}if(s.ordered){h+='<ol>';s.ordered.forEach(function(l){h+='<li>'+l+'</li>';});h+='</ol>';}if(s.table)h+='<div class="tbl" id="perbandingan">'+tbl(s.table)+'</div>';h+='</section>';});return h;}
   function faq(d){if(!d.faq||!d.faq.length)return '';var h='<section class="anim"><h2 id="faq">Pertanyaan Umum</h2>';d.faq.forEach(function(f){h+='<details class="anim"><summary>'+f.q+'</summary><div class="faq-a">'+f.a+'</div></details>';});return h+'</section>';}
   function css(fn,extra){var s=document.createElement('style');s.textContent=extra;document.head.appendChild(s);document.body.style.fontFamily="'"+fn+"',system-ui,sans-serif";}
